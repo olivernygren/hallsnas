@@ -1,9 +1,10 @@
 import React from 'react';
+import HomePage from './pages/HomePage';
+import './Global.css'
 
 const App = () => {
   return (
-    <div className="root-container">
-    </div>
+    <HomePage />
   );
 }
 
