@@ -4,6 +4,7 @@ import theme from '../theme';
 import PageHeader from '../components/header/Header';
 import Hero from '../components/hero/Hero';
 import AboutSection from '../sections/About';
+import TimesSection from '../sections/Times';
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
       <PageHeader />
       <Hero />
       <AboutSection />
+      <TimesSection />
     </RootContainer>
   )
 }

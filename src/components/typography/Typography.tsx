@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const NormalTypography = styled.p`
   font-size: 18px;
-  line-height: 180%;
+  line-height: 1.8;
 `;
 
 export const HeadingsTypography = styled.h2`
