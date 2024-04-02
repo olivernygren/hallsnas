@@ -31,7 +31,6 @@ const Header = styled.header<{ hasScrolled: boolean }>`
   transition: background-color 0.3s, box-shadow 0.3s;
   width: 100%;
   padding: ${theme.spacing.m} 0;
-  /* height: 80px; */
 
   display: flex;
   justify-content: center;

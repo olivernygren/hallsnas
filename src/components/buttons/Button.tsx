@@ -9,6 +9,7 @@ interface ButtonProps {
   children?: any;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  fitContent?: boolean;
 }
 
 type Colors = {
@@ -18,7 +19,7 @@ type Colors = {
   textColor: string;
 }
 
-const Button = ({ color, icon, onClick, children, type, disabled }: ButtonProps) => {
+const Button = ({ color, icon, onClick, children, type, disabled, fitContent }: ButtonProps) => {
   const getButtonContent = () => (
     <>
       {icon && icon}
@@ -55,13 +56,17 @@ const Button = ({ color, icon, onClick, children, type, disabled }: ButtonProps)
   return (
     <StyledButton
       colors={getButtonColors()}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      fitContent={fitContent}
     >
       {getButtonContent()}
     </StyledButton>
   )
 }
 
-const StyledButton = styled.button<{ colors: Colors }>`
+const StyledButton = styled.button<{ colors: Colors, fitContent?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,8 +74,10 @@ const StyledButton = styled.button<{ colors: Colors }>`
   position: relative;
   overflow: hidden;
   border: none;
-  padding: ${theme.spacing.xxs} ${theme.spacing.s};
+  padding: 10px 18px;
   white-space: nowrap;
+  width: ${({ fitContent }) => fitContent ? 'fit-content' : 'auto'};
+  gap: ${theme.spacing.xxs};
 
   background-color: ${({ colors }) => colors.backgroundColor};
   color: ${({ colors }) => colors.textColor}; 

@@ -121,7 +121,7 @@ const Image = styled.img`
 const CountdownContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.s};
+  gap: ${theme.spacing.xl};
   max-width: 1000px;
   margin: ${theme.spacing.xxxl} auto;
 `;
@@ -152,6 +152,7 @@ const CountdownNumber = styled.h2`
   margin: 0;
   padding: 0;
   text-align: center;
+  line-height: 1;
 `;
 
 const TimeText = styled.p`

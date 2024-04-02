@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import theme from '../theme';
 import PageHeader from '../components/header/Header';
 import Hero from '../components/hero/Hero';
+import AboutSection from '../sections/About';
 
 const HomePage = () => {
   return (
     <RootContainer>
       <PageHeader />
       <Hero />
+      <AboutSection />
     </RootContainer>
   )
 }
