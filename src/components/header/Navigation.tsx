@@ -12,7 +12,7 @@ const Navigation = () => {
       <Link href="#om-hallsnas">Om Hallsnäs</Link>
       <Divider />
       <LinkWithIcon>
-        <Link href="https://hallsnas.se" target='_blank'>hallsnas.se</Link>
+        <Link href="https://hallsnas.se" target='_blank'>www.hallsnas.se</Link>
         <ArrowSquareOut size={16} weight='fill' />
       </LinkWithIcon>
       <PlainLink href='#fraga'>
