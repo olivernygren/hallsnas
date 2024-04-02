@@ -18,10 +18,11 @@ export const SectionImage = styled.img<{ shadow?: boolean }>`
 
 export const PlainLink = styled.a`
   text-decoration: none;
+  color: ${theme.colors.text.dark};
 `;
 
-export const Paragraphs  = styled.div`
+export const Paragraphs  = styled.div<{spacing: 'normal' | 'small' }>`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.s};
+  gap: ${({ spacing }) => (spacing === 'normal' ? theme.spacing.s : theme.spacing.xxs)};
 `;

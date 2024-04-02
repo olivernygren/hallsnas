@@ -20,7 +20,7 @@ const PageHeader = () => {
 
   return (
     <Header hasScrolled={hasScrolled}>
-      <Navigation />
+      <Navigation hasScrolled={hasScrolled} />
     </Header>
   )
 }
@@ -39,6 +39,7 @@ const Header = styled.header<{ hasScrolled: boolean }>`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
 `;
 
 export default PageHeader;

@@ -5,6 +5,10 @@ import PageHeader from '../components/header/Header';
 import Hero from '../components/hero/Hero';
 import AboutSection from '../sections/About';
 import TimesSection from '../sections/Times';
+import AccommodationSection from '../sections/Accommodation';
+import ActivitiesSection from '../sections/Activities';
+import FoodAndDrinkSection from '../sections/Food';
+import OtherInfoSection from '../sections/OtherInfo';
 
 const HomePage = () => {
   return (
@@ -13,6 +17,10 @@ const HomePage = () => {
       <Hero />
       <AboutSection />
       <TimesSection />
+      <AccommodationSection />
+      <ActivitiesSection />
+      <FoodAndDrinkSection />
+      <OtherInfoSection />
     </RootContainer>
   )
 }

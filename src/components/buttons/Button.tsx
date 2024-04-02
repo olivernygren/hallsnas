@@ -78,6 +78,7 @@ const StyledButton = styled.button<{ colors: Colors, fitContent?: boolean }>`
   white-space: nowrap;
   width: ${({ fitContent }) => fitContent ? 'fit-content' : 'auto'};
   gap: ${theme.spacing.xxs};
+  transition: background-color 0.3s, color 0.3s;
 
   background-color: ${({ colors }) => colors.backgroundColor};
   color: ${({ colors }) => colors.textColor}; 

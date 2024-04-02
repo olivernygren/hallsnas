@@ -5,20 +5,17 @@ import Button from '../components/buttons/Button';
 import { ArrowSquareOut } from '@phosphor-icons/react';
 import { SectionTextContainer, PlainLink, SectionImage, Paragraphs } from './SectionStyles';
 
-const AboutSection = () => {
+const AccommodationSection = () => {
   return (
     <Section background="white">
       <SectionTextContainer>
-        <HeadingsTypography>Om Hallsnäs</HeadingsTypography>
+        <HeadingsTypography>Boende</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            Välkommen till Hallsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hallsnäs en magisk destination för vårt bröllop. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hallsnäs en magisk kuliss för vårt speciella ögonblick. 
-          </NormalTypography>
-          <NormalTypography>
-            Vi ser fram emot att dela denna vackra plats med våra nära och kära när vi utbyter våra löften och skapar minnen som kommer att vara eviga.
+            För gäster som önskar stanna över på Hallsnäs under bröllopshelgen, finns det bekvämt boende tillgängligt för övernattning. Boendealternativen inkluderar mysiga rum och stugor, perfekta för att kunna koppla av efter en dag av firande. För att säkerställa tillgänglighet, rekommenderar vi att du bokar ditt boende i förväg. För bokningar och ytterligare information, vänligen kontakta oss.
           </NormalTypography>
         </Paragraphs>
-        <PlainLink href="https://hallsnas.se/" target='_blank'>
+        <PlainLink href="https://hallsnas.se/bo/" target='_blank'>
           <Button 
             color="gold"
             icon={<ArrowSquareOut size={20} />}
@@ -28,9 +25,9 @@ const AboutSection = () => {
           </Button>
         </PlainLink>
       </SectionTextContainer>
-      <SectionImage src="/images/about_image.png" alt="Bild 1" />
+      <SectionImage src="/images/room_image.png" alt="Bild 1" />
     </Section>
   )
 };
 
-export default AboutSection
+export default AccommodationSection

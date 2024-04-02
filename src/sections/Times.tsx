@@ -9,7 +9,7 @@ const TimesSection = () => {
       <SectionImage src="/images/time_image.png" alt="Bild 1" shadow />
       <SectionTextContainer>
         <HeadingsTypography>Tider</HeadingsTypography>
-        <Paragraphs>
+        <Paragraphs spacing="normal">
           <NormalTypography>
             Lorem ipsum dolor sit amet consectetur. Risus ornare arcu fringilla ultrices nibh enim. Eu pellentesque eleifend fusce tristique pulvinar. Ac scelerisque libero suspendisse eu tempor tortor. Mattis amet nunc faucibus non nisi tellus enim. Faucibus enim hendrerit posuere senectus. Ut fusce risus lorem nec nec id. Justo elementum turpis id non ac. 
           </NormalTypography>

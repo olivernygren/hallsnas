@@ -5,32 +5,31 @@ import Button from '../components/buttons/Button';
 import { ArrowSquareOut } from '@phosphor-icons/react';
 import { SectionTextContainer, PlainLink, SectionImage, Paragraphs } from './SectionStyles';
 
-const AboutSection = () => {
+const FoodAndDrinkSection = () => {
   return (
     <Section background="white">
       <SectionTextContainer>
-        <HeadingsTypography>Om Hallsnäs</HeadingsTypography>
+        <HeadingsTypography>Mat & dryck</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            Välkommen till Hallsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hallsnäs en magisk destination för vårt bröllop. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hallsnäs en magisk kuliss för vårt speciella ögonblick. 
-          </NormalTypography>
+            Kockarna har satt samman en speciell bröllopsmeny som, tillsammans med väl valda drycker blir receptet på en oförglömlig dag. Bröllopsmiddagen kommer att avnjutas i den charmiga restaurangen Sjöö, med en oslagbar utsikt över Landvettersjön.          </NormalTypography>
           <NormalTypography>
-            Vi ser fram emot att dela denna vackra plats med våra nära och kära när vi utbyter våra löften och skapar minnen som kommer att vara eviga.
+            Vi förstår vikten av att hantera eventuella allergier och matpreferenser. Om du har några specifika önskemål eller behov, var vänlig och kontakta oss i förväg så att menyerna kan anpassas efter dig.
           </NormalTypography>
         </Paragraphs>
-        <PlainLink href="https://hallsnas.se/" target='_blank'>
+        <PlainLink href="https://hallsnas.se/ata/" target='_blank'>
           <Button 
             color="gold"
             icon={<ArrowSquareOut size={20} />}
             fitContent
             >
-            Läs mer
+            Menyer
           </Button>
         </PlainLink>
       </SectionTextContainer>
-      <SectionImage src="/images/about_image.png" alt="Bild 1" />
+      <SectionImage src="/images/food_image.png" alt="Bild 1" />
     </Section>
   )
 };
 
-export default AboutSection
+export default FoodAndDrinkSection;

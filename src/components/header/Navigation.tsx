@@ -4,7 +4,11 @@ import theme from '../../theme';
 import { ArrowSquareOut } from '@phosphor-icons/react';
 import Button from '../buttons/Button';
 
-const Navigation = () => {
+interface NavigationProps {
+  hasScrolled: boolean;
+}
+
+const Navigation = ({ hasScrolled }: NavigationProps) => {
   return (
     <Nav>
       <Link href="#tider">Tider</Link>
@@ -16,7 +20,7 @@ const Navigation = () => {
         <ArrowSquareOut size={16} weight='fill' />
       </LinkWithIcon>
       <PlainLink href='#fraga'>
-        <Button color='gold'>
+        <Button color={hasScrolled ? 'dark' : 'gold'}>
           Ställ en fråga
         </Button>
       </PlainLink>
