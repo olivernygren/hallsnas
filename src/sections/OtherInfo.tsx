@@ -9,7 +9,7 @@ import theme from '../theme';
 
 const OtherInfoSection = () => {
   return (
-    <Section background="grey" id='ovrig-info'>
+    <Section background="grey" id='ovrig-info' centerVertically>
       <SectionImage src="/images/outdoor_image.png" alt="Bild 1" />
       <SectionTextContainer>
         <HeadingsTypography>Övrig info</HeadingsTypography>
@@ -21,7 +21,37 @@ const OtherInfoSection = () => {
             På Hällsnäs parkerar du gratis. De har parkering både utanför och innanför grindarna. Grindarna hålls alltid öppna.
           </NormalTypography>
         </Paragraphs>
+        <Paragraphs spacing='small'>
+          <SubHeadingsTypography>
+            Klädkod
+          </SubHeadingsTypography>
+          <NormalTypography>
+            Något du känner dig sommarfin i 😊
+          </NormalTypography>
+        </Paragraphs>
         <Paragraphs spacing="small">
+          <SubHeadingsTypography>
+            Toastmadame Malin Lindberg
+          </SubHeadingsTypography>
+          <ContactInfoItem>
+            <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
+            <PlainLink href="tel:0721777861">
+              <LinkText>0721-77 78 61</LinkText>
+            </PlainLink>
+          </ContactInfoItem>
+        </Paragraphs>
+        <Paragraphs spacing="small">
+          <SubHeadingsTypography>
+            Toastmaster Daniel Hoffman
+          </SubHeadingsTypography>
+          <ContactInfoItem>
+            <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
+            <PlainLink href="tel:0705480978">
+              <LinkText>0705-48 09 78</LinkText>
+            </PlainLink>
+          </ContactInfoItem>
+        </Paragraphs>
+        {/* <Paragraphs spacing="small">
           <SubHeadingsTypography>
             Har du frågor?
           </SubHeadingsTypography>
@@ -42,7 +72,7 @@ const OtherInfoSection = () => {
               </PlainLink>
             </ContactInfoItem>
           </ContactInfo>
-        </Paragraphs>
+        </Paragraphs> */}
       </SectionTextContainer>
     </Section>
   )

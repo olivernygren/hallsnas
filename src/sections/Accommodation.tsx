@@ -1,9 +1,11 @@
 import React from 'react';
 import Section from '../components/section/Section';
-import { HeadingsTypography, NormalTypography } from '../components/typography/Typography';
+import { HeadingsTypography, NormalTypography, SubHeadingsTypography } from '../components/typography/Typography';
 import Button from '../components/buttons/Button';
-import { ArrowSquareOut } from '@phosphor-icons/react';
+import { ArrowSquareOut, Phone } from '@phosphor-icons/react';
 import { SectionTextContainer, PlainLink, SectionImage, Paragraphs } from './SectionStyles';
+import styled from 'styled-components';
+import theme from '../theme';
 
 const AccommodationSection = () => {
   return (
@@ -12,8 +14,25 @@ const AccommodationSection = () => {
         <HeadingsTypography>Boende</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            För gäster som önskar stanna över på Hallsnäs under bröllopshelgen, finns det bekvämt boende tillgängligt för övernattning. Boendealternativen inkluderar mysiga rum och stugor, perfekta för att kunna koppla av efter en dag av firande. För att säkerställa tillgänglighet, rekommenderar vi att du bokar ditt boende i förväg. För bokningar och ytterligare information, vänligen kontakta oss.
+            För den som vill sova över på hotellet, så är samtliga rummen på hotellet bokade för oss. Boendet är utan kostnad för våra gäster.
           </NormalTypography>
+          <Paragraphs spacing='small'>
+            <SubHeadingsTypography>
+              Tider & bokning
+            </SubHeadingsTypography>
+            <NormalTypography>
+              Incheckning 15:00, utcheckning 11:00.
+            </NormalTypography>
+          </Paragraphs>
+          <NormalTypography>
+            Kontakta hotellet på telefon för att boka.
+          </NormalTypography>
+          <ContactInfoItem>
+            <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
+            <PlainLink href="tel:+4631916466">
+              <LinkText>+46 319 164 66</LinkText>
+            </PlainLink>
+          </ContactInfoItem>
         </Paragraphs>
         <PlainLink href="https://hallsnas.se/bo/" target='_blank'>
           <Button 
@@ -29,5 +48,15 @@ const AccommodationSection = () => {
     </Section>
   )
 };
+
+const ContactInfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${theme.spacing.xxs}
+`;
+
+const LinkText = styled.b`
+  font-size: 18px;
+`;
 
 export default AccommodationSection

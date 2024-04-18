@@ -32,7 +32,7 @@ const QuestionFormSection = () => {
             </PlainLink>
           </ContactInfoItem>
           <ContactInfoItem>
-            <Phone size={24} color={theme.colors.gold.regular} />
+            <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
             <PlainLink href="tel:0700671376">
               <LinkText>0700-67 13 76</LinkText>
             </PlainLink>

@@ -6,13 +6,14 @@ interface SectionProps {
   id: string;
   background: 'white' | 'grey';
   reverse?: boolean;
+  centerVertically?: boolean;
   children: React.ReactNode;
 }
 
-const Section = ({ id, background, reverse, children }: SectionProps) => {
+const Section = ({ id, background, reverse, centerVertically, children }: SectionProps) => {
   return (
     <Container background={background} id={id}>
-      <Content reverse={reverse}>
+      <Content reverse={reverse} centerVertically={centerVertically}>
         {children}
       </Content>
     </Container>
@@ -25,7 +26,7 @@ const Container = styled.div<{ background: string }>`
   background-color: ${({ background }) => background === 'white' ? theme.colors.common.white : theme.colors.grey.light};
 `;
 
-const Content = styled.div<{ reverse?: boolean }>`
+const Content = styled.div<{ reverse?: boolean, centerVertically?: boolean }>`
   display: flex;
   flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
   gap: ${theme.spacing.l};
@@ -33,6 +34,7 @@ const Content = styled.div<{ reverse?: boolean }>`
   max-width: 1000px;
   margin: 0 auto;
   height: fit-content;
+  align-items: ${({ centerVertically }) => (centerVertically ? 'center' : 'flex-start')};
 `;
 
 export default Section;

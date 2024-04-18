@@ -14,9 +14,6 @@ const AboutSection = () => {
           <NormalTypography>
             Välkommen till Hallsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hallsnäs en magisk destination för vårt bröllop. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hallsnäs en magisk kuliss för vårt speciella ögonblick. 
           </NormalTypography>
-          <NormalTypography>
-            Vi ser fram emot att dela denna vackra plats med våra nära och kära när vi utbyter våra löften och skapar minnen som kommer att vara eviga.
-          </NormalTypography>
         </Paragraphs>
         <PlainLink href="https://hallsnas.se/" target='_blank'>
           <Button 

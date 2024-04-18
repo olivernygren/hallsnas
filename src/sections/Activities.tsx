@@ -13,7 +13,7 @@ const ActivitiesSection = () => {
         <HeadingsTypography>Aktiviteter</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            För de som kommer fram till Hallsnäs lördag förmiddag finns en rad spännande aktiviteter. Ni kan koppla av på bastuflotten och i badtunnan, paddla kanot, spela shuffleboard eller biljard, prova olika drycker som vin, whisky och gin, eller till och med laga mat tillsammans med en kock. För de som önskar att träna finns både utomhus- och inomhusgym, samt möjligheten att spela boule eller kubb. Valet är ditt!
+            Det finns en rad aktiviteter för den som vill utnyttja detta på förmiddagen innan incheckning, eller på söndagen, så som uteträning, kanot, bastu & spa, och vi har hela anläggningen för oss själva, både lördag och söndag.
           </NormalTypography>
         </Paragraphs>
         <PlainLink href="https://hallsnas.se/att-gora/" target='_blank'>
