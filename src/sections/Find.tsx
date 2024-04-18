@@ -1,7 +1,7 @@
-import { MapPin } from '@phosphor-icons/react'
+import { HandTap, MapPin } from '@phosphor-icons/react'
 import React from 'react'
 import Section from '../components/section/Section'
-import { HeadingsTypography, NormalTypography } from '../components/typography/Typography'
+import { HeadingsTypography, NormalTypography, SubHeadingsTypography } from '../components/typography/Typography'
 import { SectionTextContainer, Paragraphs } from './SectionStyles'
 import styled from 'styled-components'
 import theme from '../theme'
@@ -50,6 +50,7 @@ const Map = styled.iframe`
   border: none;
   height: 400px;
   width: 500px;
+  border-radius: 4px;
 `;
 
 export default FindSection

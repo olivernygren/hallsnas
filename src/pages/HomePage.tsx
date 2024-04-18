@@ -10,6 +10,7 @@ import ActivitiesSection from '../sections/Activities';
 import FoodAndDrinkSection from '../sections/Food';
 import OtherInfoSection from '../sections/OtherInfo';
 import FindSection from '../sections/Find';
+import QuestionFormSection from '../sections/QuestionForm';
 
 const HomePage = () => {
   return (
@@ -23,6 +24,7 @@ const HomePage = () => {
       <FoodAndDrinkSection />
       <OtherInfoSection />
       <FindSection />
+      <QuestionFormSection />
     </RootContainer>
   )
 }

@@ -13,6 +13,7 @@ interface ButtonProps {
 }
 
 type Colors = {
+  disabled: string;
   backgroundColor: string;
   hover: string;
   active: string;
@@ -31,6 +32,7 @@ const Button = ({ color, icon, onClick, children, type, disabled, fitContent }: 
     switch (color) {
       case 'gold':
         return {
+          disabled: theme.colors.gold.light,
           backgroundColor: theme.colors.gold.regular,
           hover: theme.colors.gold.dark,
           active: theme.colors.gold.darker,
@@ -38,6 +40,7 @@ const Button = ({ color, icon, onClick, children, type, disabled, fitContent }: 
         }
       case 'dark':
         return {
+          disabled: theme.colors.grey.regular,
           backgroundColor: theme.colors.text.dark,
           hover: theme.colors.gold.regular,
           active: theme.colors.gold.dark,
@@ -45,6 +48,7 @@ const Button = ({ color, icon, onClick, children, type, disabled, fitContent }: 
         }
       default:
         return {
+          disabled: theme.colors.grey.light,
           backgroundColor: theme.colors.common.white,
           hover: theme.colors.grey.light,
           active: theme.colors.grey.regular,
@@ -79,6 +83,7 @@ const StyledButton = styled.button<{ colors: Colors, fitContent?: boolean }>`
   width: ${({ fitContent }) => fitContent ? 'fit-content' : 'auto'};
   gap: ${theme.spacing.xxs};
   transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
 
   background-color: ${({ colors }) => colors.backgroundColor};
   color: ${({ colors }) => colors.textColor}; 
@@ -89,6 +94,11 @@ const StyledButton = styled.button<{ colors: Colors, fitContent?: boolean }>`
 
   &:active {
     background-color: ${({ colors }) => colors.active};
+  }
+
+  &:disabled {
+    background-color: ${({ colors }) => colors.disabled};
+    cursor: not-allowed;
   }
 `;
 
