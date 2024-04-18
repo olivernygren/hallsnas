@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import theme from '../../theme';
-import { Circle, Heart } from '@phosphor-icons/react';
+import { Calendar, Circle, Heart, Info } from '@phosphor-icons/react';
 
 const Hero = () => {
   const [days, setDays] = useState(0);
@@ -50,6 +50,10 @@ const Hero = () => {
           <Circle size={4} weight='fill' />
           <ThinH2>10 augusti 2024</ThinH2>
         </SubheadingContainer>
+        <SaveTheDateContainer>
+          <Calendar size={40} color={theme.colors.gold.regular} />
+          <h3>OSA 20 juni</h3>
+        </SaveTheDateContainer>
       </Content>
       <ImageContainer>
         <Image src="/images/image_1.png" alt='Bild 1' />
@@ -57,24 +61,28 @@ const Hero = () => {
         <Image src="/images/image_3.png" alt='Bild 3' />
         <Image src="/images/image_4.png" alt='Bild 4' />
       </ImageContainer>
-      <CountdownContainer>
-        {getDivider()}
-        <Countdown>
-          <TimeContainer>
-            <CountdownNumber>{days}</CountdownNumber>
-            <TimeText>dagar</TimeText>
-          </TimeContainer>
-          <TimeContainer>
-            <CountdownNumber>{hours}</CountdownNumber>
-            <TimeText>timmar</TimeText>
-          </TimeContainer>
-          <TimeContainer>
-            <CountdownNumber>{minutes}</CountdownNumber>
-            <TimeText>minuter</TimeText>
-          </TimeContainer>
-        </Countdown>
-        {getDivider()}
-      </CountdownContainer>
+      {/* <BottomContentContainer> */}
+        {/* <LargeImage src="/images/wedding.jpg" alt='Bröllop' /> */}
+        <CountdownContainer>
+          {getDivider()}
+          <Countdown>
+            <TimeContainer>
+              <CountdownNumber>{days}</CountdownNumber>
+              <TimeText>dagar</TimeText>
+            </TimeContainer>
+            <TimeContainer>
+              <CountdownNumber>{hours}</CountdownNumber>
+              <TimeText>timmar</TimeText>
+            </TimeContainer>
+            <TimeContainer>
+              <CountdownNumber>{minutes}</CountdownNumber>
+              <TimeText>minuter</TimeText>
+            </TimeContainer>
+          </Countdown>
+          {getDivider()}
+        </CountdownContainer>
+        <LargeImage />
+      {/* </BottomContentContainer> */}
     </Container>
   )
 }
@@ -89,13 +97,13 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: ${theme.spacing.l};
 `;
 
 const SubheadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: ${theme.spacing.l};
   gap: ${theme.spacing.l};
 `;
 
@@ -108,7 +116,7 @@ const ImageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: ${theme.spacing.l};
-  margin-top: ${theme.spacing.xxxxl};
+  margin-top: ${theme.spacing.xxxl};
 `;
 
 const Image = styled.img`
@@ -118,12 +126,25 @@ const Image = styled.img`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
+const LargeImage = styled.div`
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+
+  background-image: url('/images/wedding-large.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
 const CountdownContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xl};
-  max-width: 1000px;
-  margin: ${theme.spacing.xxxl} auto;
+  flex: 1;
+  max-width: 1400px;
+  margin: ${theme.spacing.xxxxl} auto;
 `;
 
 const Countdown = styled.div`
@@ -164,6 +185,34 @@ const TimeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: ${theme.spacing.xs};
+`;
+
+const SaveTheDateContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: ${theme.spacing.s};
+  background-color: ${theme.colors.green.dark};
+  padding: ${theme.spacing.xs} ${theme.spacing.m};
+  margin-top: ${theme.spacing.xl};
+  border-radius: 8px;
+  transform: rotate(-5deg);
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  transition: all 0.15s;
+  box-sizing: border-box;
+
+  &:hover {
+    transform: rotate(0deg);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  }
+  
+  > h3 {
+    color: ${theme.colors.common.white};
+    font-size: 30px;
+    font-weight: 600;
+  }
 `;
 
 export default Hero;

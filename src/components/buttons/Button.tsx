@@ -39,8 +39,8 @@ const Button = ({ color, icon, onClick, children, type, disabled, fitContent }: 
       case 'dark':
         return {
           backgroundColor: theme.colors.text.dark,
-          hover: theme.colors.text.dark,
-          active: theme.colors.text.dark,
+          hover: theme.colors.gold.regular,
+          active: theme.colors.gold.dark,
           textColor: theme.colors.common.white,
         }
       default:
