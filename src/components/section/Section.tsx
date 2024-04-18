@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import theme from '../../theme';
 
 interface SectionProps {
+  id: string;
   background: 'white' | 'grey';
   reverse?: boolean;
   children: React.ReactNode;
 }
 
-const Section = ({ background, reverse, children }: SectionProps) => {
+const Section = ({ id, background, reverse, children }: SectionProps) => {
   return (
-    <Container background={background}>
+    <Container background={background} id={id}>
       <Content reverse={reverse}>
         {children}
       </Content>

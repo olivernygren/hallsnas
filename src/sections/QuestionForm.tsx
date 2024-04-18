@@ -15,7 +15,7 @@ const QuestionFormSection = () => {
   const [state, handleSubmit] = useForm("xbjnqdbb");
 
   return (
-    <Section background="grey">
+    <Section background="grey" id='fraga'>
       <SectionTextContainer narrow>
         <HeadingsTypography>Ställ en fråga</HeadingsTypography>
         <Paragraphs spacing="normal">

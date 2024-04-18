@@ -9,7 +9,7 @@ import theme from '../theme';
 
 const OtherInfoSection = () => {
   return (
-    <Section background="grey">
+    <Section background="grey" id='ovrig-info'>
       <SectionImage src="/images/outdoor_image.png" alt="Bild 1" />
       <SectionTextContainer>
         <HeadingsTypography>Övrig info</HeadingsTypography>

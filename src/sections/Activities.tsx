@@ -7,7 +7,7 @@ import { SectionTextContainer, PlainLink, SectionImage, Paragraphs } from './Sec
 
 const ActivitiesSection = () => {
   return (
-    <Section background="grey">
+    <Section background="grey" id='aktiviteter'>
       <SectionImage src="/images/boule_image.png" alt="Bild 1" />
       <SectionTextContainer>
         <HeadingsTypography>Aktiviteter</HeadingsTypography>

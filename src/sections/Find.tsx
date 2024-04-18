@@ -8,7 +8,7 @@ import theme from '../theme'
 
 const FindSection = () => {
   return (
-    <Section background="white">
+    <Section background="white" id='hitta-hit'>
       <SectionTextContainer narrow>
         <HeadingsTypography>Hitta hit</HeadingsTypography>
         <Paragraphs spacing="normal">

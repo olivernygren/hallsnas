@@ -5,7 +5,7 @@ import { SectionTextContainer, PlainLink, SectionImage, Paragraphs } from './Sec
 
 const TimesSection = () => {
   return (
-    <Section background="grey">
+    <Section background="grey" id='tider'>
       <SectionImage src="/images/time_image.png" alt="Bild 1" shadow />
       <SectionTextContainer>
         <HeadingsTypography>Tider</HeadingsTypography>

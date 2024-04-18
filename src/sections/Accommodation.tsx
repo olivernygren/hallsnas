@@ -7,7 +7,7 @@ import { SectionTextContainer, PlainLink, SectionImage, Paragraphs } from './Sec
 
 const AccommodationSection = () => {
   return (
-    <Section background="white">
+    <Section background="white" id='boende'>
       <SectionTextContainer>
         <HeadingsTypography>Boende</HeadingsTypography>
         <Paragraphs spacing="normal">
