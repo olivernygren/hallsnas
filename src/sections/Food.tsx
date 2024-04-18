@@ -12,7 +12,8 @@ const FoodAndDrinkSection = () => {
         <HeadingsTypography>Mat & dryck</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            Kockarna har satt samman en speciell bröllopsmeny som, tillsammans med väl valda drycker blir receptet på en oförglömlig dag. Bröllopsmiddagen kommer att avnjutas i den charmiga restaurangen Sjöö, med en oslagbar utsikt över Landvettersjön.          </NormalTypography>
+            Kockarna har satt samman en speciell bröllopsmeny som, tillsammans med väl valda drycker blir receptet på en oförglömlig dag. Bröllopsmiddagen kommer att avnjutas i den charmiga restaurangen Sjöö, med en oslagbar utsikt över Landvettersjön.
+          </NormalTypography>
           <NormalTypography>
             Vi förstår vikten av att hantera eventuella allergier och matpreferenser. Om du har några specifika önskemål eller behov, var vänlig och kontakta oss i förväg så att menyerna kan anpassas efter dig.
           </NormalTypography>

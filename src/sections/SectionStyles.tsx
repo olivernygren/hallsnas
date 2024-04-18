@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import theme from "../theme";
 
-export const SectionTextContainer = styled.div`
+export const SectionTextContainer = styled.div<{ narrow?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.l};
-  max-width: 500px;
+  max-width: ${({ narrow }) => (narrow ? '400px' : '500px')};
 `;
 
 export const SectionImage = styled.img<{ shadow?: boolean }>`

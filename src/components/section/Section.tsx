@@ -34,11 +34,4 @@ const Content = styled.div<{ reverse?: boolean }>`
   height: fit-content;
 `;
 
-const TextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.l};
-  /* flex: 1; */
-`;
-
 export default Section;

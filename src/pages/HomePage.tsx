@@ -9,6 +9,7 @@ import AccommodationSection from '../sections/Accommodation';
 import ActivitiesSection from '../sections/Activities';
 import FoodAndDrinkSection from '../sections/Food';
 import OtherInfoSection from '../sections/OtherInfo';
+import FindSection from '../sections/Find';
 
 const HomePage = () => {
   return (
@@ -21,6 +22,7 @@ const HomePage = () => {
       <ActivitiesSection />
       <FoodAndDrinkSection />
       <OtherInfoSection />
+      <FindSection />
     </RootContainer>
   )
 }
