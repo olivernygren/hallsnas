@@ -35,6 +35,7 @@ const RootContainer = styled.div`
   background-color: ${theme.colors.grey.light};
   min-height: 200vh;
   position: relative;
+  overflow-x: hidden;
 `;
 
 export default HomePage;

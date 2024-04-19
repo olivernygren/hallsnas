@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import theme from '../../theme';
+import theme, { devices } from '../../theme';
 import Navigation from './Navigation';
 
 const PageHeader = () => {
@@ -30,16 +30,20 @@ const Header = styled.header<{ hasScrolled: boolean }>`
   box-shadow: ${({ hasScrolled }) => hasScrolled ? '4px 0px 12px rgba(0, 0, 0, 0.05)' : 'none'};
   transition: background-color 0.3s, box-shadow 0.3s;
   width: 100%;
-  padding: ${theme.spacing.m} 0;
 
   display: flex;
-  justify-content: center;
-
+  justify-content: flex-start;
+  
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
+  
+  @media ${devices.laptop} {
+    padding: ${theme.spacing.m} 0;
+    justify-content: center;
+  }
 `;
 
 export default PageHeader;

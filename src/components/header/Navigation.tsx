@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import theme from '../../theme';
-import { ArrowSquareOut } from '@phosphor-icons/react';
+import theme, { devices } from '../../theme';
+import { ArrowSquareOut, List, X } from '@phosphor-icons/react';
 import Button from '../buttons/Button';
+import MobileMenu from '../mobile-menu/MobileMenu';
 
 interface NavigationProps {
   hasScrolled: boolean;
@@ -10,29 +11,36 @@ interface NavigationProps {
 
 const Navigation = ({ hasScrolled }: NavigationProps) => {
   return (
-    <Nav>
-      <Link href="#tider">Tider</Link>
-      <Link href="#boende">Boende</Link>
-      <Link href="#om-hallsnas">Om Hallsnäs</Link>
-      <Divider />
-      <LinkWithIcon>
-        <Link href="https://hallsnas.se" target='_blank'>www.hallsnas.se</Link>
-        <ArrowSquareOut size={16} weight='fill' />
-      </LinkWithIcon>
-      <PlainLink href='#fraga'>
-        <Button color={hasScrolled ? 'dark' : 'gold'}>
-          Ställ en fråga
-        </Button>
-      </PlainLink>
-    </Nav>
+    <>
+      <MobileMenu />
+      <Nav>
+        <Link href="#tider">Tider</Link>
+        <Link href="#boende">Boende</Link>
+        <Link href="#om-hallsnas">Om Hallsnäs</Link>
+        <Divider />
+        <LinkWithIcon>
+          <Link href="https://hallsnas.se" target='_blank'>www.hallsnas.se</Link>
+          <ArrowSquareOut size={16} weight='fill' />
+        </LinkWithIcon>
+        <PlainLink href='#fraga'>
+          <Button color={hasScrolled ? 'dark' : 'gold'}>
+            Ställ en fråga
+          </Button>
+        </PlainLink>
+      </Nav>
+    </>
   )
 }
 
 const Nav = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.xl};
-  width: fit-content;
+  display: none;
+
+  @media ${devices.laptop} { 
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.xl};
+    width: fit-content;
+  }
 `;
 
 const Link = styled.a`
