@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import theme from '../../theme';
+import theme, { devices } from '../../theme';
 import { Calendar, Circle, Heart, Info } from '@phosphor-icons/react';
 
 const Hero = () => {
@@ -51,18 +51,18 @@ const Hero = () => {
           <ThinH2>10 augusti 2024</ThinH2>
         </SubheadingContainer>
         <SaveTheDateContainer>
-          <Calendar size={40} color={theme.colors.gold.regular} />
+          <Calendar size={36} color={theme.colors.gold.regular} />
           <h3>OSA 20 juni</h3>
         </SaveTheDateContainer>
       </Content>
       <ImageContainer>
         <Image src="/images/image_1.png" alt='Bild 1' />
         <Image src="/images/image_2.png" alt='Bild 2' />
-        <Image src="/images/image_3.png" alt='Bild 3' />
-        <Image src="/images/image_4.png" alt='Bild 4' />
+        <ResponsiveImagesContainer>
+          <Image src="/images/image_3.png" alt='Bild 3' />
+          <Image src="/images/image_4.png" alt='Bild 4' />
+        </ResponsiveImagesContainer>
       </ImageContainer>
-      {/* <BottomContentContainer> */}
-        {/* <LargeImage src="/images/wedding.jpg" alt='Bröllop' /> */}
         <CountdownContainer>
           {getDivider()}
           <Countdown>
@@ -82,13 +82,16 @@ const Hero = () => {
           {getDivider()}
         </CountdownContainer>
         <LargeImage />
-      {/* </BottomContentContainer> */}
     </Container>
   )
 }
 
 const Container = styled.div`
-  padding-top: 180px;
+  padding-top: 140px;
+
+  @media ${devices.tablet} {
+    padding-top: 180px;
+  }
 `;
 
 const Content = styled.div`
@@ -98,13 +101,36 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   gap: ${theme.spacing.l};
+  padding: 0 20px;
+
+  > h1 {
+    font-size: 54px;
+    text-align: center;
+  }
+  
+  @media ${devices.tablet} {
+    padding: 0;
+
+    > h1 {
+      font-size: 80px;
+      text-align: left;
+    }
+  }
 `;
 
 const SubheadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${theme.spacing.l};
+  flex-direction: column;
+  gap: ${theme.spacing.s};
+  padding-top: ${theme.spacing.s};
+  
+  @media ${devices.tablet} {
+    flex-direction: row;
+    gap: ${theme.spacing.l};
+    padding-top: 0;
+  }
 `;
 
 const ThinH2 = styled.h2`
@@ -114,9 +140,16 @@ const ThinH2 = styled.h2`
 const ImageContainer = styled.div`
   max-width: 100vw;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: ${theme.spacing.l};
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: ${theme.spacing.s};
   margin-top: ${theme.spacing.xxxl};
+  
+  @media ${devices.tablet} {
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: 1fr;
+    gap: ${theme.spacing.l};
+  }
 `;
 
 const Image = styled.img`
@@ -128,14 +161,22 @@ const Image = styled.img`
 
 const LargeImage = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 500px;
   margin: 0 auto;
-
-  background-image: url('/images/wedding-large.jpg');
-  background-attachment: fixed;
-  background-position: center;
+  
+  background-image: url('/images/wedding.jpg');
+  background-size: 100% auto;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center;
+  
+  @media ${devices.tablet} {
+    height: 100vh;
+    background-image: url('/images/wedding-large.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;
 
 const CountdownContainer = styled.div`
@@ -144,14 +185,24 @@ const CountdownContainer = styled.div`
   gap: ${theme.spacing.xl};
   flex: 1;
   max-width: 1400px;
-  margin: ${theme.spacing.xxxxl} auto;
+  margin: ${theme.spacing.xxxl} auto;
+  padding: 0 20px;
+  
+  @media ${devices.tablet} {
+    margin: ${theme.spacing.xxxxl} auto;
+    padding: 0;
+  }
 `;
 
 const Countdown = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${theme.spacing.xxl};
+  gap: ${theme.spacing.l};
   align-items: center;
+
+  @media ${devices.tablet} {
+    gap: ${theme.spacing.xxl};
+  }
 `;
 
 const IconDivider = styled.div`
@@ -168,16 +219,24 @@ const DividerLine = styled.div`
 `;
 
 const CountdownNumber = styled.h2`
-  font-size: 60px;
+  font-size: 48px;
   font-weight: 800;
   margin: 0;
   padding: 0;
   text-align: center;
   line-height: 1;
+
+  @media ${devices.tablet} {
+    font-size: 60px;
+  }
 `;
 
 const TimeText = styled.p`
-  font-size: 22px;
+  font-size: 20px;
+
+  @media ${devices.tablet} {
+    font-size: 22px;
+  }
 `;
 
 const TimeContainer = styled.div`
@@ -194,7 +253,7 @@ const SaveTheDateContainer = styled.div`
   gap: ${theme.spacing.s};
   background-color: ${theme.colors.green.dark};
   padding: ${theme.spacing.xs} ${theme.spacing.m};
-  margin-top: ${theme.spacing.xl};
+  margin-top: ${theme.spacing.l};
   border-radius: 8px;
   transform: rotate(-5deg);
   box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
@@ -210,8 +269,26 @@ const SaveTheDateContainer = styled.div`
   
   > h3 {
     color: ${theme.colors.common.white};
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 600;
+  }
+
+  @media ${devices.tablet} {
+    margin-top: ${theme.spacing.xl};
+
+    > h3 {
+      font-size: 30px;
+    }
+  }
+`;
+
+const ResponsiveImagesContainer = styled.div`
+  display: none;
+
+  @media ${devices.tablet} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${theme.spacing.l};
   }
 `;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import theme from '../../theme';
+import theme, { devices } from '../../theme';
 
 interface SectionProps {
   id: string;
@@ -22,19 +22,29 @@ const Section = ({ id, background, reverse, centerVertically, children }: Sectio
 
 const Container = styled.div<{ background: string }>`
   width: 100%;
-  padding: ${theme.spacing.xxxxl} ${theme.spacing.m};
+  padding: ${theme.spacing.xxl} ${theme.spacing.m};
   background-color: ${({ background }) => background === 'white' ? theme.colors.common.white : theme.colors.grey.light};
+
+  @media ${devices.tablet} {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.m};
+  }
 `;
 
 const Content = styled.div<{ reverse?: boolean, centerVertically?: boolean }>`
   display: flex;
-  flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
-  gap: ${theme.spacing.l};
-  justify-content: space-between;
-  max-width: 1000px;
+  flex-direction: ${({ reverse }) => (reverse ? 'column-reverse' : 'column')};
+  max-width: 100%;
+  gap: ${theme.spacing.xl};
   margin: 0 auto;
   height: fit-content;
-  align-items: ${({ centerVertically }) => (centerVertically ? 'center' : 'flex-start')};
+  
+  @media ${devices.tablet} {
+    flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
+    gap: ${theme.spacing.l};
+    justify-content: space-between;
+    max-width: 1000px;
+    align-items: ${({ centerVertically }) => (centerVertically ? 'center' : 'flex-start')};
+  }
 `;
 
 export default Section;

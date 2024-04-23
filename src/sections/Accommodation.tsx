@@ -9,7 +9,7 @@ import theme from '../theme';
 
 const AccommodationSection = () => {
   return (
-    <Section background="white" id='boende'>
+    <Section background="white" id='boende' reverse>
       <SectionTextContainer>
         <HeadingsTypography>Boende</HeadingsTypography>
         <Paragraphs spacing="normal">

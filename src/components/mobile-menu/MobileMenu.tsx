@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import theme, { devices } from '../../theme';
 import { X, List, ArrowCircleRight, ArrowSquareOut } from '@phosphor-icons/react';
 
@@ -57,7 +57,7 @@ const MobileMenu = () => {
             </PageButton>
             <Divider />
             <PageButton onClick={() => setIsMobileMenuOpen(false)}>
-              <StyledLink href="#hitta">Hitta hit</StyledLink>
+              <StyledLink href="#hitta-hit">Hitta hit</StyledLink>
               <ArrowCircleRight size={24} color={theme.colors.gold.light} weight="fill" />
             </PageButton>
             <Divider />
@@ -101,7 +101,7 @@ const RootContainer = styled.div`
 `;
 
 const MenuContainer = styled.div<{ isOpen: boolean }>`
-  animation: ${({ isOpen }) => isOpen ? slideIn : slideOut} 0.3s forwards;
+  ${({ isOpen }) => isOpen ? css`animation: ${slideIn} 0.3s forwards;` : css`animation: ${slideOut} 0s forwards;`}
   width: 100vw;
   height: 100vh;
   background-color: ${theme.colors.common.white};
@@ -137,7 +137,6 @@ const MobileMenuButton = styled.button`
 const MenuContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: ${theme.spacing.l} 20px;
   margin-top: ${theme.spacing.xxl};
   box-sizing: border-box;
@@ -147,8 +146,9 @@ const MenuContent = styled.div`
 const PageButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.s};
+  gap: ${theme.spacing.xs};
   box-sizing: border-box;
+  padding-bottom: ${theme.spacing.l};
 `;
 
 const PageButton = styled.div`
@@ -168,7 +168,7 @@ const Divider = styled.div`
 
 const StyledLink = styled.a<{ gold?: boolean }>`
   text-decoration: none;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 600;
   color: ${({ gold }) => (gold ? theme.colors.gold.regular : theme.colors.text.dark)};
 `;  

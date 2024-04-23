@@ -5,7 +5,7 @@ import { Paragraphs, PlainLink, SectionImage, SectionTextContainer } from './Sec
 import styled from 'styled-components'
 import { useForm } from '@formspree/react'
 import Input from '../components/input/Input'
-import theme from '../theme'
+import theme, { devices } from '../theme'
 import { Envelope, Phone } from '@phosphor-icons/react/dist/ssr'
 import Textarea from '../components/textarea/Textarea'
 import Button from '../components/buttons/Button'
@@ -109,9 +109,14 @@ const StyledForm = styled.form`
 
 const InputRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: ${theme.spacing.s};
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
   width: 100%;
+  
+  @media ${devices.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const ContactInfo = styled.div`

@@ -4,11 +4,11 @@ import Section from '../components/section/Section'
 import { HeadingsTypography, NormalTypography, SubHeadingsTypography } from '../components/typography/Typography'
 import { SectionTextContainer, Paragraphs } from './SectionStyles'
 import styled from 'styled-components'
-import theme from '../theme'
+import theme, { devices } from '../theme'
 
 const FindSection = () => {
   return (
-    <Section background="white" id='hitta-hit'>
+    <Section background="white" id='hitta-hit' reverse>
       <SectionTextContainer narrow>
         <HeadingsTypography>Hitta hit</HeadingsTypography>
         <Paragraphs spacing="normal">
@@ -49,8 +49,12 @@ const AddressLineTwo = styled.div`
 const Map = styled.iframe`
   border: none;
   height: 400px;
-  width: 500px;
+  width: 100%;
   border-radius: 4px;
+
+  @media ${devices.tablet} {
+    width: 500px;
+  }
 `;
 
 export default FindSection

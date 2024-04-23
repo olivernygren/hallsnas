@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import theme from '../theme';
+import theme, { devices } from '../theme';
 import { PlainLink } from './SectionStyles';
 
 const Footer = () => {
@@ -33,15 +33,26 @@ const Container = styled.div`
   width: 100%;
   background-color: ${theme.colors.green.dark};
   height: fit-content;
-  padding: ${theme.spacing.xxxl} 0;
+  padding: ${theme.spacing.xxl} 0;
+
+  @media ${devices.tablet} {
+    padding: ${theme.spacing.xxxl} 0;
+  }
 `;
 
 const Content = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  gap: ${theme.spacing.l};
+  flex-direction: column;
+  gap: ${theme.spacing.xxl};
+  padding: 0 20px;
+  
+  @media ${devices.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: ${theme.spacing.l};
+  }
 `;
 
 const FancyTextWrapper = styled.div`
