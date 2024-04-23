@@ -39,7 +39,7 @@ const Content = styled.div<{ reverse?: boolean, centerVertically?: boolean }>`
   height: fit-content;
   
   @media ${devices.tablet} {
-    flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
+    flex-direction: row;
     gap: ${theme.spacing.l};
     justify-content: space-between;
     max-width: 1000px;
