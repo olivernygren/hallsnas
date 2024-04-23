@@ -22,11 +22,11 @@ const QuestionFormSection = () => {
   return (
     <Section background="grey" id='fraga'>
       <SectionTextContainer narrow>
-        <HeadingsTypography>Ställ en fråga</HeadingsTypography>
+        <HeadingsTypography>Frågor & OSA</HeadingsTypography>
         <Paragraphs spacing="normal">
-          <NormalTypography>Har du frågor eller funderingar? </NormalTypography>
+          <NormalTypography>Vänligen skicka in OSA eller frågor till oss via formuläret.</NormalTypography>
           <NormalTypography>
-            Hör av dig till oss på mail eller telefon, eller ställ din fråga i formuläret.
+            <b>OSA</b> - Specificera antal personer och eventuella allergier i sällskapet.
           </NormalTypography>
         </Paragraphs>
         <ContactInfo>
@@ -70,18 +70,10 @@ const QuestionFormSection = () => {
               required
             />
           </InputRow>
-          <Input
-            id="Email"
-            name="Email"
-            label="Din e-postadress"
-            type="email"
-            required
-            fullWidth
-          />
           <Textarea
-            id='Fråga'
-            name='Fråga'
-            label='Fråga'
+            id='Fråga/OSA'
+            name='Fråga/OSA'
+            label='Fråga/OSA'
             required
             fullWidth
           />

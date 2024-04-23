@@ -55,33 +55,33 @@ const Hero = () => {
           <h3>OSA 20 juni</h3>
         </SaveTheDateContainer>
       </Content>
+      <LargeImage />
+      <CountdownContainer>
+        {getDivider()}
+        <Countdown>
+          <TimeContainer>
+            <CountdownNumber>{days}</CountdownNumber>
+            <TimeText>dagar</TimeText>
+          </TimeContainer>
+          <TimeContainer>
+            <CountdownNumber>{hours}</CountdownNumber>
+            <TimeText>timmar</TimeText>
+          </TimeContainer>
+          <TimeContainer>
+            <CountdownNumber>{minutes}</CountdownNumber>
+            <TimeText>minuter</TimeText>
+          </TimeContainer>
+        </Countdown>
+        {getDivider()}
+      </CountdownContainer>
       <ImageContainer>
-        <Image src="/images/image_1-small.png" alt='Bild 1' />
-        <Image src="/images/image_2-small.png" alt='Bild 2' />
-        <ResponsiveImagesContainer>
-          <Image src="/images/image_3-small.png" alt='Bild 3' />
-          <Image src="/images/image_4-small.png" alt='Bild 4' />
-        </ResponsiveImagesContainer>
+      <Image src="/images/image_1-small.png" alt='Bild 1' />
+      <Image src="/images/image_2-small.png" alt='Bild 2' />
+      <ResponsiveImagesContainer>
+        <Image src="/images/image_3-small.png" alt='Bild 3' />
+        <Image src="/images/image_4-small.png" alt='Bild 4' />
+      </ResponsiveImagesContainer>
       </ImageContainer>
-        <CountdownContainer>
-          {getDivider()}
-          <Countdown>
-            <TimeContainer>
-              <CountdownNumber>{days}</CountdownNumber>
-              <TimeText>dagar</TimeText>
-            </TimeContainer>
-            <TimeContainer>
-              <CountdownNumber>{hours}</CountdownNumber>
-              <TimeText>timmar</TimeText>
-            </TimeContainer>
-            <TimeContainer>
-              <CountdownNumber>{minutes}</CountdownNumber>
-              <TimeText>minuter</TimeText>
-            </TimeContainer>
-          </Countdown>
-          {getDivider()}
-        </CountdownContainer>
-        <LargeImage />
     </Container>
   )
 }
@@ -91,6 +91,7 @@ const Container = styled.div`
 
   @media ${devices.tablet} {
     padding-top: 180px;
+    padding-bottom: ${theme.spacing.xxxxl};
   }
 `;
 
@@ -101,7 +102,7 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   gap: ${theme.spacing.l};
-  padding: 0 20px;
+  padding: 0 20px ${theme.spacing.xxxl} 0;
 
   > h1 {
     font-size: 54px;
@@ -109,7 +110,7 @@ const Content = styled.div`
   }
   
   @media ${devices.tablet} {
-    padding: 0;
+    padding: 0 20px ${theme.spacing.xxxl} 0;
 
     > h1 {
       font-size: 80px;
@@ -149,6 +150,10 @@ const ImageContainer = styled.div`
     grid-template-columns: 1fr 1fr 2fr;
     grid-template-rows: 1fr;
     gap: ${theme.spacing.l};
+    width: 120%;
+    margin-left: -10%;
+    max-width: unset;
+    transform: rotate(-5deg);
   }
 `;
 
