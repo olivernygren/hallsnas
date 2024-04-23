@@ -14,6 +14,11 @@ import { CheckCircle, CircleNotch, PaperPlaneTilt } from '@phosphor-icons/react'
 const QuestionFormSection = () => {
   const [state, handleSubmit] = useForm("xbjnqdbb");
 
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await handleSubmit(e);
+  }
+
   return (
     <Section background="grey" id='fraga'>
       <SectionTextContainer narrow>
@@ -48,7 +53,7 @@ const QuestionFormSection = () => {
           </Paragraphs>
         </SuccessMessage>
       ) : (
-        <StyledForm onClick={handleSubmit}>
+        <StyledForm onSubmit={(e) => submitForm(e)}>
           <InputRow>
             <Input
               id="Namn"
@@ -116,6 +121,7 @@ const InputRow = styled.div`
   
   @media ${devices.tablet} {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
   }
 `;
 
