@@ -102,7 +102,7 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   gap: ${theme.spacing.l};
-  padding: 0 20px ${theme.spacing.xxxl} 0;
+  padding: 0 20px ${theme.spacing.xxxl} 20px;
 
   > h1 {
     font-size: 54px;
@@ -143,7 +143,7 @@ const ImageContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, 1fr);
-  gap: ${theme.spacing.s};
+  gap: ${theme.spacing.m};
   margin-top: ${theme.spacing.xxxl};
   
   @media ${devices.tablet} {

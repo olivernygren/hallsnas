@@ -31,12 +31,6 @@ const QuestionFormSection = () => {
         </Paragraphs>
         <ContactInfo>
           <ContactInfoItem>
-            <Envelope size={24} color={theme.colors.gold.regular} />
-            <PlainLink href="mailto:christiannygren293@msn.com">
-              <LinkText>christiannygren293@msn.com</LinkText>
-            </PlainLink>
-          </ContactInfoItem>
-          <ContactInfoItem>
             <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
             <PlainLink href="tel:0700671376">
               <LinkText>0700-67 13 76</LinkText>
