@@ -24,7 +24,7 @@ const TimesSection = () => {
           {getTime('16:30', 'Brudskål')}
           {getTime('17:30', 'Till bords')}
           {getTime('22:00', 'Baren och dansgolvet öppnar')}
-          {getTime('01:00', 'Nattamat')}
+          {getTime('00:00', 'Nattamat')}
           {getTime('02:00', 'Anläggningen stänger och sensommarnatten rundas av, eller fortsätts någon annan stans 😄')}
         </Paragraphs>
       </SectionTextContainer>

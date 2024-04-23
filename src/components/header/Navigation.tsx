@@ -16,7 +16,7 @@ const Navigation = ({ hasScrolled }: NavigationProps) => {
       <Nav>
         <Link href="#tider">Tider</Link>
         <Link href="#boende">Boende</Link>
-        <Link href="#om-hallsnas">Om Hallsnäs</Link>
+        <Link href="#om-hallsnas">Om Hällsnäs</Link>
         <Divider />
         <LinkWithIcon>
           <Link href="https://hallsnas.se" target='_blank'>www.hallsnas.se</Link>

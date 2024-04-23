@@ -27,7 +27,7 @@ const MobileMenu = () => {
         <MenuContent>
           <PageButtonsContainer>
             <PageButton onClick={() => setIsMobileMenuOpen(false)}>
-              <StyledLink href="#om-hallsnas">Om Hallsnäs</StyledLink>
+              <StyledLink href="#om-hallsnas">Om Hällsnäs</StyledLink>
               <ArrowCircleRight size={24} color={theme.colors.gold.light} weight="fill" />
             </PageButton>
             <Divider />

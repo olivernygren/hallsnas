@@ -13,7 +13,7 @@ const FindSection = () => {
         <HeadingsTypography>Hitta hit</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            Hallsnäs är beläget öster om Mölnlycke intill Landvettersjön, endast 20 minuter från Göteborg.
+            Hällsnäs är beläget öster om Mölnlycke intill Landvettersjön, endast 20 minuter från Göteborg.
           </NormalTypography>
         </Paragraphs>
         <Address>

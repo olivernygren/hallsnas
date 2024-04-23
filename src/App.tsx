@@ -7,7 +7,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>Bröllop Christian & Sara - Hallsnäs</title>
+        <title>Bröllop Christian & Sara - Hällsnäs</title>
       </Helmet>
       <HomePage />
     </>

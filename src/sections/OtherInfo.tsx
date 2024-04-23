@@ -56,7 +56,7 @@ const OtherInfoSection = () => {
             Har du frågor?
           </SubHeadingsTypography>
           <NormalTypography>
-            Om du har frågor eller funderingar är du varmt välkommen att kontakta Hallnäs via e-post eller telefon.
+            Om du har frågor eller funderingar är du varmt välkommen att kontakta Hällsnäs via e-post eller telefon.
           </NormalTypography>
           <ContactInfo>
             <ContactInfoItem>

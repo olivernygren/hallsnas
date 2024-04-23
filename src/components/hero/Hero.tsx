@@ -46,7 +46,7 @@ const Hero = () => {
       <Content>
         <h1>Bröllop Christian & Sara</h1>
         <SubheadingContainer>
-          <h2>Hallsnäs Hotell & Restaurang</h2>
+          <h2>Hällsnäs Hotell & Restaurang</h2>
           <Circle size={4} weight='fill' />
           <ThinH2>10 augusti 2024</ThinH2>
         </SubheadingContainer>

@@ -8,12 +8,12 @@ const Footer = () => {
     <Container>
       <Content>
         <FancyTextWrapper>
-          <FancyText>Vi hälsar er varmt välkomma till vårt bröllop på Hallsnäs!</FancyText>
+          <FancyText>Vi hälsar er varmt välkomma till vårt bröllop på Hällsnäs!</FancyText>
           <Signature>/Christian & Sara</Signature>
         </FancyTextWrapper>
         <LinksWrapper>
           <Links>
-            <Link href="#om-hallsnas">Om Hallsnäs</Link>
+            <Link href="#om-hallsnas">Om Hällsnäs</Link>
             <Link href="#tider">Tider</Link>
             <Link href="#boende">Boende</Link>
             <Link href="#aktiviteter">Aktiviteter</Link>

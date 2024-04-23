@@ -9,10 +9,10 @@ const AboutSection = () => {
   return (
     <Section background="white" id='om-hallsnas' reverse>
       <SectionTextContainer>
-        <HeadingsTypography>Om Hallsnäs</HeadingsTypography>
+        <HeadingsTypography>Om Hällsnäs</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            Välkommen till Hallsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hallsnäs en magisk destination för vårt bröllop. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hallsnäs en magisk kuliss för vårt speciella ögonblick. 
+            Välkommen till Hällsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hällsnäs en magisk destination för vårt bröllop. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hällsnäs en magisk kuliss för vårt speciella ögonblick. 
           </NormalTypography>
         </Paragraphs>
         <PlainLink href="https://hallsnas.se/" target='_blank'>
