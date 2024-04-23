@@ -56,11 +56,11 @@ const Hero = () => {
         </SaveTheDateContainer>
       </Content>
       <ImageContainer>
-        <Image src="/images/image_1.png" alt='Bild 1' />
-        <Image src="/images/image_2.png" alt='Bild 2' />
+        <Image src="/images/image_1-small.png" alt='Bild 1' />
+        <Image src="/images/image_2-small.png" alt='Bild 2' />
         <ResponsiveImagesContainer>
-          <Image src="/images/image_3.png" alt='Bild 3' />
-          <Image src="/images/image_4.png" alt='Bild 4' />
+          <Image src="/images/image_3-small.png" alt='Bild 3' />
+          <Image src="/images/image_4-small.png" alt='Bild 4' />
         </ResponsiveImagesContainer>
       </ImageContainer>
         <CountdownContainer>
