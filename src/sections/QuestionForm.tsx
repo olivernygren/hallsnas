@@ -42,8 +42,8 @@ const QuestionFormSection = () => {
         <SuccessMessage>
           <CheckCircle size={72} color="#22b120" weight="fill" />
           <Paragraphs spacing="small">
-            <NormalTypography>Tack för din fråga!</NormalTypography>
-            <NormalTypography>Vi återkommer så snart vi kan.</NormalTypography>
+            <NormalTypography>Tack för ditt meddelande!</NormalTypography>
+            <NormalTypography>Om du ställt en fråga så återkommer vi så snart vi kan.</NormalTypography>
           </Paragraphs>
         </SuccessMessage>
       ) : (
