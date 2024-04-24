@@ -24,7 +24,7 @@ const Navigation = ({ hasScrolled }: NavigationProps) => {
         </LinkWithIcon>
         <PlainLink href='#fraga'>
           <Button color={hasScrolled ? 'dark' : 'gold'}>
-            Ställ en fråga
+            Fråga & OSA
           </Button>
         </PlainLink>
       </Nav>
