@@ -44,7 +44,7 @@ const Hero = () => {
   return (
     <Container>
       <Content>
-        <h1>Bröllop Christian & Sara</h1>
+        <h1>Bröllopsfest Sara & Christian</h1>
         <SubheadingContainer>
           <h2>Hällsnäs Hotell & Restaurang</h2>
           <Circle size={4} weight='fill' />
