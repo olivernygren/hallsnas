@@ -12,7 +12,7 @@ const AboutSection = () => {
         <HeadingsTypography>Om Hällsnäs</HeadingsTypography>
         <Paragraphs spacing="normal">
           <NormalTypography>
-            Välkommen till Hällsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hällsnäs en magisk destination för vårt bröllop. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hällsnäs en magisk kuliss för vårt speciella ögonblick. 
+            Välkommen till Hällsnäs - beläget i den idylliska naturen i Göteborgs omgivningar, är Hällsnäs en magisk destination för vår bröllopsfest. Med sina grönskande skogar, glittrande sjöar och charmiga atmosfär erbjuder Hällsnäs en magisk kuliss för vårt speciella ögonblick. 
           </NormalTypography>
         </Paragraphs>
         <PlainLink href="https://hallsnas.se/" target='_blank'>
