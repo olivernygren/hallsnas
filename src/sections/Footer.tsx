@@ -8,7 +8,7 @@ const Footer = () => {
     <Container>
       <Content>
         <FancyTextWrapper>
-          <FancyText>Vi hälsar er varmt välkomma till vårt bröllop på Hällsnäs!</FancyText>
+          <FancyText>Vi hälsar er varmt välkomna till vår bröllopsfest på Hällsnäs!</FancyText>
           <Signature>/Christian & Sara</Signature>
         </FancyTextWrapper>
         <LinksWrapper>
