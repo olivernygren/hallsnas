@@ -34,7 +34,13 @@ const OtherInfoSection = () => {
             Toastmadame Malin Lindberg
           </SubHeadingsTypography>
           <ContactInfoItem>
-            <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
+            <Envelope weight='regular' size={24} color={theme.colors.gold.regular} />
+            <PlainLink href="mailto:malin.lindberg.se@gmail.com">
+              <LinkText>malin.lindberg.se@gmail.com</LinkText>
+            </PlainLink>
+          </ContactInfoItem>
+          <ContactInfoItem>
+            <Phone weight='regular' size={24} color={theme.colors.gold.regular} />
             <PlainLink href="tel:0721777861">
               <LinkText>0721-77 78 61</LinkText>
             </PlainLink>
@@ -44,6 +50,12 @@ const OtherInfoSection = () => {
           <SubHeadingsTypography>
             Toastmaster Daniel Hoffman
           </SubHeadingsTypography>
+          <ContactInfoItem>
+            <Envelope weight='regular' size={24} color={theme.colors.gold.regular} />
+            <PlainLink href="mailto:hoffa40@hotmail.com">
+              <LinkText>hoffa40@hotmail.com</LinkText>
+            </PlainLink>
+          </ContactInfoItem>
           <ContactInfoItem>
             <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
             <PlainLink href="tel:0705480978">
@@ -91,8 +103,9 @@ const ContactInfoItem = styled.div`
   gap: ${theme.spacing.xxs}
 `;
 
-const LinkText = styled.b`
+const LinkText = styled.p`
   font-size: 18px;
+  font-weight: 500;
 `;
 
 export default OtherInfoSection;

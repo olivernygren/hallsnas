@@ -50,10 +50,12 @@ const Hero = () => {
           <Circle size={4} weight='fill' />
           <ThinH2>10 augusti 2024</ThinH2>
         </SubheadingContainer>
-        <SaveTheDateContainer>
-          <Calendar size={36} color={theme.colors.gold.regular} />
-          <h3>OSA 20 juni</h3>
-        </SaveTheDateContainer>
+        <PlainLink href='#fraga'>
+          <SaveTheDateContainer>
+            <Calendar size={36} color={theme.colors.gold.regular} />
+            <h3>OSA 20 juni</h3>
+          </SaveTheDateContainer>
+        </PlainLink>
       </Content>
       <LargeImage />
       <CountdownContainer>
@@ -295,6 +297,10 @@ const ResponsiveImagesContainer = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: ${theme.spacing.l};
   }
+`;
+
+const PlainLink = styled.a`
+  text-decoration: none;
 `;
 
 export default Hero;
