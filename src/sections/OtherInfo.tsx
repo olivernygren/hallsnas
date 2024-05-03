@@ -57,7 +57,7 @@ const OtherInfoSection = () => {
             </PlainLink>
           </ContactInfoItem>
           <ContactInfoItem>
-            <Phone weight='fill' size={24} color={theme.colors.gold.regular} />
+            <Phone weight='regular' size={24} color={theme.colors.gold.regular} />
             <PlainLink href="tel:0705480978">
               <LinkText>0705-48 09 78</LinkText>
             </PlainLink>
