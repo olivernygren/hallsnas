@@ -1,45 +1,142 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import theme, { devices } from '../../theme';
-import { Calendar, Circle, Heart, Info } from '@phosphor-icons/react';
+import { ArrowsOutSimple, Circle, DownloadSimple, Heart, ThumbsUp, UploadSimple } from '@phosphor-icons/react';
+import Button from '../buttons/Button';
+import { storage, firestore } from '../../firebase';
+import { addDoc, collection, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { HeadingsTypography, NormalTypography, SubHeadingsTypography } from '../typography/Typography';
+import Section from '../section/Section';
+
+interface FirestoreImage {
+  url: string;
+  likes: number;
+  uploadTime: string;
+}
 
 const Hero = () => {
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+  const [images, setImages] = useState<Array<FirestoreImage>>([]);
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [initialFetchLoading, setInitialFetchLoading] = useState(true);
 
   useEffect(() => {
-    const targetDate = new Date('August 10, 2024 15:00:00');
-  
-    const calculateCountdown = () => {
-      const now = new Date();
-      const distance = targetDate.getTime() - now.getTime();
-  
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  
-      setDays(days);
-      setHours(hours);
-      setMinutes(minutes);
+    const fetchImages = async () => {
+      const imagesCollection = collection(firestore, 'images');
+      const snapshot = await getDocs(imagesCollection);
+      setImages(snapshot.docs.map((doc) => (
+        { url: doc.data().url, likes: doc.data().likes, uploadTime: doc.data().uploadTime }
+      )).sort((a, b) => new Date(b.uploadTime).getTime() - new Date(a.uploadTime).getTime()));
+      setInitialFetchLoading(false);
     };
-  
-    calculateCountdown();
-  
-    const intervalId = setInterval(calculateCountdown, 60000);
-  
-    return () => {
-      clearInterval(intervalId);
-    };
+
+    fetchImages();
   }, []);
   
-  const getDivider = () => (
-    <IconDivider>
-      <DividerLine />
-      <Heart size={24} color={theme.colors.gold.light} />
-      <DividerLine />
-    </IconDivider>
-  )
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUploadLoading(true);
+    const files = e.target.files;
+    if (files) {      
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const fileRef = ref(storage, file.name);
+        await uploadBytes(fileRef, file);
+        const fileUrl = await getDownloadURL(fileRef);
+  
+        const imagesCollection = collection(firestore, 'images');
+        await addDoc(imagesCollection, { url: fileUrl, likes: 0, uploadTime: new Date().toUTCString() });
+  
+        return fileUrl;
+      });
+  
+      const fileUrls = await Promise.all(uploadPromises);
+      setImages((prevImages) => [...fileUrls.map(url => ({ url, likes: 0, uploadTime: new Date().toUTCString() })), ...prevImages]);
+    }
+    setUploadLoading(false);
+  };
+
+  const handleLikeImage = async (url: string) => {
+    const imagesCollection = collection(firestore, 'images');
+    const q = query(imagesCollection, where('url', '==', url));
+  
+    const likedImages = JSON.parse(localStorage.getItem('likedImages') || '[]');
+  
+    if (!likedImages.includes(url)) {
+      try {
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          const currentLikes = querySnapshot.docs[0].data().likes || 0;
+  
+          await updateDoc(docRef, {
+            likes: currentLikes + 1
+          });
+    
+          likedImages.push(url);
+          localStorage.setItem('likedImages', JSON.stringify(likedImages));
+  
+          setImages((prevImages) => prevImages.map((image) => {
+            if (image.url === url) {
+              return { ...image, likes: image.likes + 1 };
+            }
+            return image;
+          }));
+        } else {
+          console.log('No documents found');
+        }
+      } catch (error) {
+        console.error("Error updating document: ", error);
+      }
+    } else {
+      try {
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          const currentLikes = querySnapshot.docs[0].data().likes || 0;
+  
+          if (currentLikes > 0) {
+            await updateDoc(docRef, {
+              likes: currentLikes - 1
+            });
+    
+            const index = likedImages.indexOf(url);
+            if (index > -1) {
+              likedImages.splice(index, 1);
+              localStorage.setItem('likedImages', JSON.stringify(likedImages));
+            }
+  
+            setImages((prevImages) => prevImages.map((image) => {
+              if (image.url === url) {
+                return { ...image, likes: image.likes - 1 };
+              }
+              return image;
+            }));
+          }
+        } else {
+          console.log('No documents found');
+        }
+      } catch (error) {
+        console.error("Error updating document: ", error);
+      }
+    }
+  };
+  
+  const handleButtonClick = () => {
+    document.getElementById('fileInput')?.click();
+  };
+
+  const handleDownload = (url: string) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `image-${Math.random() * 100}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const hasLikedImage = (url: string) => {
+    const likedImages = JSON.parse(localStorage.getItem('likedImages') || '[]');
+    return likedImages.includes(url);
+  }
 
   return (
     <Container>
@@ -50,40 +147,57 @@ const Hero = () => {
           <Circle size={4} weight='fill' />
           <ThinH2>10 augusti 2024</ThinH2>
         </SubheadingContainer>
-        <PlainLink href='#fraga'>
-          <SaveTheDateContainer>
-            <Calendar size={36} color={theme.colors.gold.regular} />
-            <h3>OSA 20 juni</h3>
-          </SaveTheDateContainer>
-        </PlainLink>
       </Content>
-      <LargeImage />
-      <CountdownContainer>
-        {getDivider()}
-        <Countdown>
-          <TimeContainer>
-            <CountdownNumber>{days}</CountdownNumber>
-            <TimeText>dagar</TimeText>
-          </TimeContainer>
-          <TimeContainer>
-            <CountdownNumber>{hours}</CountdownNumber>
-            <TimeText>timmar</TimeText>
-          </TimeContainer>
-          <TimeContainer>
-            <CountdownNumber>{minutes}</CountdownNumber>
-            <TimeText>minuter</TimeText>
-          </TimeContainer>
-        </Countdown>
-        {getDivider()}
-      </CountdownContainer>
-      <ImageContainer>
-      <Image src="/images/image_1-small.png" alt='Bild 1' />
-      <Image src="/images/image_2-small.png" alt='Bild 2' />
-      <ResponsiveImagesContainer>
-        <Image src="/images/image_3-small.png" alt='Bild 3' />
-        <Image src="/images/image_4-small.png" alt='Bild 4' />
-      </ResponsiveImagesContainer>
-      </ImageContainer>
+      <Section id='images' background='grey' wide>
+        <GallerySection>
+          <GallerySectionHeader>
+          <HeadingsTypography>Galleri</HeadingsTypography>
+            <>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: 'none' }}
+                onChange={handleUpload}
+                multiple
+                accept="image/*"
+              />
+              <Button color="dark" onClick={handleButtonClick} disabled={uploadLoading}>
+                <UploadSimple size={30} color={theme.colors.common.white} />
+                {uploadLoading ? 'Laddar upp...' : 'Ladda upp bilder'}
+              </Button>
+            </>
+          </GallerySectionHeader>
+          {initialFetchLoading && (
+            <NormalTypography color={theme.colors.text.light}>Hämtar bilder...</NormalTypography>
+          )}
+          {(!images || images.length === 0) && !initialFetchLoading && (
+            <NormalTypography color={theme.colors.text.light}>Inga bilder har laddats upp ännu.</NormalTypography>
+          )}
+          <Gallery>
+            {images && images.length && !initialFetchLoading ? images.map(({ url, likes }) => (
+              <ImageContainer key={url}>
+                <Image src={url} alt="uploaded" />
+                <ImageToolBar>
+                  <LikesContainer>
+                    <div onClick={() => handleLikeImage(url)}>
+                      <Heart weight={hasLikedImage(url) ? 'fill' : 'regular'} size={24} color={theme.colors.common.white} />
+                    </div>
+                    <NormalTypography color={theme.colors.common.white}>{likes}</NormalTypography>
+                  </LikesContainer>
+                  <div onClick={() => handleDownload(url)} style={{ cursor: 'pointer' }}>
+                    <ArrowsOutSimple size={24} color={theme.colors.common.white} />
+                  </div>
+                </ImageToolBar>
+              </ImageContainer>
+            )) : (
+              <ImageUploadPlaceholder onClick={handleButtonClick}>
+                <UploadSimple size={24} color={theme.colors.text.dark} />
+                <NormalTypography>Ladda upp bilder</NormalTypography>
+              </ImageUploadPlaceholder>
+            )}
+          </Gallery>
+        </GallerySection>
+      </Section>
     </Container>
   )
 }
@@ -93,7 +207,7 @@ const Container = styled.div`
 
   @media ${devices.tablet} {
     padding-top: 180px;
-    padding-bottom: ${theme.spacing.xxxxl};
+    padding-bottom: ${theme.spacing.l};
   }
 `;
 
@@ -104,7 +218,7 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   gap: ${theme.spacing.l};
-  padding: 0 20px ${theme.spacing.xxxl} 20px;
+  padding: 0 20px 0 20px;
 
   > h1 {
     font-size: 54px;
@@ -112,7 +226,7 @@ const Content = styled.div`
   }
   
   @media ${devices.tablet} {
-    padding: 0 20px ${theme.spacing.xxxl} 0;
+    padding: 0 20px 0 0;
 
     > h1 {
       font-size: 80px;
@@ -128,6 +242,7 @@ const SubheadingContainer = styled.div`
   flex-direction: column;
   gap: ${theme.spacing.s};
   padding-top: ${theme.spacing.s};
+  padding-bottom: ${theme.spacing.l};
   
   @media ${devices.tablet} {
     flex-direction: row;
@@ -141,166 +256,95 @@ const ThinH2 = styled.h2`
 `;
 
 const ImageContainer = styled.div`
-  max-width: 100vw;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  gap: ${theme.spacing.m};
-  margin-top: ${theme.spacing.xxxl};
-  
-  @media ${devices.tablet} {
-    grid-template-columns: 1fr 1fr 2fr;
-    grid-template-rows: 1fr;
-    gap: ${theme.spacing.l};
-    width: 120%;
-    margin-left: -10%;
-    max-width: unset;
-    transform: rotate(-5deg);
-  }
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${theme.colors.grey.light};
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 `;
 
-const LargeImage = styled.div`
+const ImageToolBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${theme.spacing.xxs} ${theme.spacing.s};
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
   width: 100%;
-  height: 500px;
-  margin: 0 auto;
-  
-  background-image: url('/images/wedding.jpg');
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  
-  @media ${devices.tablet} {
-    height: 100vh;
-    background-image: url('/images/wedding-large.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+  box-sizing: border-box;
 `;
 
-const CountdownContainer = styled.div`
+const GallerySection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.xl};
-  flex: 1;
-  max-width: 1400px;
-  margin: ${theme.spacing.xxxl} auto;
-  padding: 0 20px;
-  
-  @media ${devices.tablet} {
-    margin: ${theme.spacing.xxxxl} auto;
-    padding: 0;
-  }
+  gap: ${theme.spacing.m};
+  background-color: ${theme.colors.common.white};
+  padding: ${theme.spacing.m};
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
-const Countdown = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: ${theme.spacing.l};
-  align-items: center;
-
-  @media ${devices.tablet} {
-    gap: ${theme.spacing.xxl};
-  }
+const Gallery = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: ${theme.spacing.m};
+  box-sizing: border-box;
 `;
 
-const IconDivider = styled.div`
+const GallerySectionHeader = styled.div`
   display: flex;
-  align-items: center;
   gap: ${theme.spacing.s};
   width: 100%;
-`;
-
-const DividerLine = styled.div`
-  height: 1px;
-  background-color: ${theme.colors.gold.light};
-  flex: 1;
-`;
-
-const CountdownNumber = styled.h2`
-  font-size: 48px;
-  font-weight: 800;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  line-height: 1;
-
-  @media ${devices.tablet} {
-    font-size: 60px;
-  }
-`;
-
-const TimeText = styled.p`
-  font-size: 20px;
-
-  @media ${devices.tablet} {
-    font-size: 22px;
-  }
-`;
-
-const TimeContainer = styled.div`
-  display: flex;
+  box-sizing: border-box;
   flex-direction: column;
+  
+  @media ${devices.tablet} {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+`;
+
+const ImageUploadPlaceholder = styled.div`
+  width: 100%;
+  height: 300px;
+  background-color: ${theme.colors.grey.light};
+  border-radius: 8px;
+  border: 1px dashed ${theme.colors.grey.regular};
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: ${theme.spacing.xs};
+  cursor: pointer;
 `;
 
-const SaveTheDateContainer = styled.div`
+const LikesContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${theme.spacing.s};
-  background-color: ${theme.colors.green.dark};
-  padding: ${theme.spacing.xs} ${theme.spacing.m};
-  margin-top: ${theme.spacing.l};
-  border-radius: 8px;
-  transform: rotate(-5deg);
-  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 1;
-  transition: all 0.15s;
-  box-sizing: border-box;
+  align-items: end;
+  gap: ${theme.spacing.xxs};
 
-  &:hover {
-    transform: rotate(0deg);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-  }
-  
-  > h3 {
+  ${NormalTypography} {
     color: ${theme.colors.common.white};
-    font-size: 24px;
-    font-weight: 600;
   }
 
-  @media ${devices.tablet} {
-    margin-top: ${theme.spacing.xl};
-
-    > h3 {
-      font-size: 30px;
-    }
+  svg {
+    cursor: pointer;
   }
-`;
-
-const ResponsiveImagesContainer = styled.div`
-  display: none;
-
-  @media ${devices.tablet} {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: ${theme.spacing.l};
-  }
-`;
-
-const PlainLink = styled.a`
-  text-decoration: none;
 `;
 
 export default Hero;
