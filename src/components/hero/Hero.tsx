@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import theme, { devices } from '../../theme';
-import { ArrowsOutSimple, Circle, DownloadSimple, Heart, ThumbsUp, UploadSimple } from '@phosphor-icons/react';
+import { ArrowSquareOut, Circle, Heart, Trash, UploadSimple } from '@phosphor-icons/react';
 import Button from '../buttons/Button';
 import { storage, firestore } from '../../firebase';
-import { addDoc, collection, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { HeadingsTypography, NormalTypography, SubHeadingsTypography } from '../typography/Typography';
 import Section from '../section/Section';
+import Modal from '../modal/Modal';
 
 interface FirestoreImage {
   url: string;
   likes: number;
   uploadTime: string;
-}
+};
+
+const key = 'n9egn498tho3thn409j03rurjt09u0twehg9ht3489hg3eg'
 
 const Hero = () => {
   const [images, setImages] = useState<Array<FirestoreImage>>([]);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [initialFetchLoading, setInitialFetchLoading] = useState(true);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const [imageToDelete, setImageToDelete] = useState<string | undefined>();
+  const [deleteImageLoading, setDeleteImageLoading] = useState(false);
+  
+  const urlHasKey = window.location.href.includes(key);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -50,6 +59,8 @@ const Hero = () => {
   
       const fileUrls = await Promise.all(uploadPromises);
       setImages((prevImages) => [...fileUrls.map(url => ({ url, likes: 0, uploadTime: new Date().toUTCString() })), ...prevImages]);
+      const myUploadedImages = JSON.parse(localStorage.getItem('myUploadedImages') || '[]');
+      localStorage.setItem('myUploadedImages', JSON.stringify([...myUploadedImages, ...fileUrls]));
     }
     setUploadLoading(false);
   };
@@ -119,6 +130,43 @@ const Hero = () => {
       }
     }
   };
+
+  const handleDeleteImage = async () => {
+    setDeleteImageLoading(true);
+    const myUploadedImages = JSON.parse(localStorage.getItem('myUploadedImages') || '[]');
+    
+    const image = myUploadedImages.find((image: string) => image === imageToDelete);
+    const canDeleteImage = (image && image.length > 0) || urlHasKey;
+    
+    if (canDeleteImage) {
+      try {
+        const imagesCollection = collection(firestore, 'images');
+        const q = query(imagesCollection, where('url', '==', imageToDelete));
+
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          const currentLikes = querySnapshot.docs[0].data().likes || 0;
+  
+          await deleteDoc(docRef);
+    
+          const newArray = myUploadedImages.filter((image: string) => image !== imageToDelete);
+          localStorage.setItem('myUploadedImages', JSON.stringify(newArray));
+  
+          setImages((prevImages) => prevImages.filter((image) => image.url !== imageToDelete));
+        } else {
+          console.log('No documents found');
+        }
+      } catch (error) {
+        console.error("Error deleting document: ", error);
+      }
+    }
+
+    setDeleteImageLoading(false);
+    setImageToDelete(undefined);
+    setShowConfirmationModal(false);
+  }
   
   const handleButtonClick = () => {
     document.getElementById('fileInput')?.click();
@@ -127,6 +175,7 @@ const Hero = () => {
   const handleDownload = (url: string) => {
     const link = document.createElement('a');
     link.href = url;
+    link.target = '_blank';
     link.download = `image-${Math.random() * 100}`;
     document.body.appendChild(link);
     link.click();
@@ -167,27 +216,54 @@ const Hero = () => {
               </Button>
             </>
           </GallerySectionHeader>
+          {!initialFetchLoading && (
+            <NormalTypography color={theme.colors.text.light}>Här kan du som gäst se, gilla och ladda upp bilder från festen 🥳</NormalTypography>
+          )}
           {initialFetchLoading && (
             <NormalTypography color={theme.colors.text.light}>Hämtar bilder...</NormalTypography>
           )}
-          {(!images || images.length === 0) && !initialFetchLoading && (
-            <NormalTypography color={theme.colors.text.light}>Inga bilder har laddats upp ännu.</NormalTypography>
-          )}
-          <Gallery>
+          <Gallery noImages={!initialFetchLoading && images.length === 0}>
             {images && images.length && !initialFetchLoading ? images.map(({ url, likes }) => (
               <ImageContainer key={url}>
                 <Image src={url} alt="uploaded" />
                 <ImageToolBar>
                   <LikesContainer>
-                    <div onClick={() => handleLikeImage(url)}>
+                    <IconContainer onClick={() => handleLikeImage(url)}>
                       <Heart weight={hasLikedImage(url) ? 'fill' : 'regular'} size={24} color={theme.colors.common.white} />
-                    </div>
+                    </IconContainer>
                     <NormalTypography color={theme.colors.common.white}>{likes}</NormalTypography>
                   </LikesContainer>
-                  <div onClick={() => handleDownload(url)} style={{ cursor: 'pointer' }}>
-                    <ArrowsOutSimple size={24} color={theme.colors.common.white} />
-                  </div>
+                  <IconContainer onClick={() => handleDownload(url)}>
+                    <ArrowSquareOut size={24} color={theme.colors.common.white} />
+                  </IconContainer>
+                  {(JSON.stringify(localStorage.getItem('myUploadedImages')).includes(url) || urlHasKey) && (
+                    <IconContainer onClick={() => {
+                      setImageToDelete(url);
+                      setShowConfirmationModal(true);
+                    }}>
+                      <Trash size={24} color={theme.colors.common.white} />
+                    </IconContainer>
+                  )}
                 </ImageToolBar>
+                <ImageToolBarMobile>
+                  <LikesContainer>
+                    <IconContainer onClick={() => handleLikeImage(url)}>
+                      <Heart weight={hasLikedImage(url) ? 'fill' : 'regular'} size={24} color={theme.colors.text.dark} />
+                    </IconContainer>
+                    <NormalTypography color={theme.colors.common.white}>{likes}</NormalTypography>
+                  </LikesContainer>
+                  <IconContainer onClick={() => handleDownload(url)}>
+                    <ArrowSquareOut size={24} color={theme.colors.text.dark} />
+                  </IconContainer>
+                  {(JSON.stringify(localStorage.getItem('myUploadedImages')).includes(url) || urlHasKey) && (
+                    <IconContainer onClick={() => {
+                      setImageToDelete(url);
+                      setShowConfirmationModal(true);
+                    }}>
+                      <Trash size={24} color={theme.colors.text.dark} />
+                    </IconContainer>
+                  )}
+                </ImageToolBarMobile>
               </ImageContainer>
             )) : (
               <ImageUploadPlaceholder onClick={handleButtonClick}>
@@ -198,6 +274,26 @@ const Hero = () => {
           </Gallery>
         </GallerySection>
       </Section>
+      {showConfirmationModal && (
+        <Modal
+          title='Ta bort bild'
+          onClose={() => setShowConfirmationModal(false)}
+        >
+          <NormalTypography>Vill du verkligen ta bort bilden?</NormalTypography>
+          <ModalButtonContainer>
+            <Button
+              color='dark'
+              onClick={() => {
+                setShowConfirmationModal(false);
+                setImageToDelete(undefined);
+              }}
+            >
+              Avbryt
+            </Button>
+            <Button color="danger" disabled={deleteImageLoading} onClick={() => handleDeleteImage()}>{deleteImageLoading ? 'Tar bort...' : 'Ja, ta bort'}</Button>
+          </ModalButtonContainer>
+        </Modal>
+      )}
     </Container>
   )
 }
@@ -258,12 +354,18 @@ const ThinH2 = styled.h2`
 const ImageContainer = styled.div`
   width: 100%;
   height: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 2;
   position: relative;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid ${theme.colors.grey.light};
+  display: flex;
+  flex-direction: column;
+
+  @media ${devices.tablet} {
+    aspect-ratio: 1 / 1;
+  }
 `;
 
 const Image = styled.img`
@@ -275,17 +377,34 @@ const Image = styled.img`
 `;
 
 const ImageToolBar = styled.div`
+  display: none;
+
+  @media ${devices.tablet} {
+    display: flex;
+    align-items: center;
+    padding: ${theme.spacing.xxs} ${theme.spacing.s};
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    gap: ${theme.spacing.xs};
+  }
+`;
+
+const ImageToolBarMobile = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: ${theme.spacing.xxs} ${theme.spacing.s};
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  padding: 6px ${theme.spacing.xxs};
   width: 100%;
   box-sizing: border-box;
+  gap: ${theme.spacing.xxs};
+
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 const GallerySection = styled.div`
@@ -299,11 +418,16 @@ const GallerySection = styled.div`
   box-sizing: border-box;
 `;
 
-const Gallery = styled.div`
+const Gallery = styled.div<{ noImages: boolean }>`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: ${theme.spacing.m};
+  grid-template-columns: ${({ noImages }) => noImages ? '1fr' : 'repeat(2, 1fr)'};
+  gap: ${theme.spacing.xs};
   box-sizing: border-box;
+
+  @media ${devices.tablet} {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: ${theme.spacing.m};
+  }
 `;
 
 const GallerySectionHeader = styled.div`
@@ -335,15 +459,35 @@ const ImageUploadPlaceholder = styled.div`
 
 const LikesContainer = styled.div`
   display: flex;
-  align-items: end;
+  align-items: center;
   gap: ${theme.spacing.xxs};
-
-  ${NormalTypography} {
-    color: ${theme.colors.common.white};
+  flex: 1;
+  
+  @media ${devices.tablet} {
+    ${NormalTypography} {
+      color: ${theme.colors.common.white};
+    }
+    svg {
+      cursor: pointer;
+    }
   }
+`;
 
-  svg {
-    cursor: pointer;
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const ModalButtonContainer = styled.div`
+  display: flex;
+  gap: ${theme.spacing.xs};
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+
+  > button {
+    width: 100%;
   }
 `;
 

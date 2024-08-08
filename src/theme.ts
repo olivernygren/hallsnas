@@ -20,6 +20,11 @@ const theme = {
     common: {
       white: '#FFFFFF',
       black: '#000000',
+    },
+    danger: {
+      regular: '#FF0000',
+      disabled: '#FFC1C1',
+      dark: '#CC0000',
     }
   },
   spacing :{

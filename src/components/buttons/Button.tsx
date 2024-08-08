@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from '../../theme';
 
 interface ButtonProps {
-  color?: 'gold' | 'dark';
+  color?: 'gold' | 'dark' | 'danger';
   icon?: React.ReactNode;
   onClick?: () => void;
   children?: any;
@@ -44,6 +44,14 @@ const Button = ({ color, icon, onClick, children, type, disabled, fitContent }: 
           backgroundColor: theme.colors.text.dark,
           hover: theme.colors.gold.regular,
           active: theme.colors.gold.dark,
+          textColor: theme.colors.common.white,
+        }
+      case 'danger':
+        return {
+          disabled: theme.colors.danger.disabled,
+          backgroundColor: theme.colors.danger.regular,
+          hover: theme.colors.danger.dark,
+          active: theme.colors.danger.dark,
           textColor: theme.colors.common.white,
         }
       default:
