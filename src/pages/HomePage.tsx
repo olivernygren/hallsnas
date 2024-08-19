@@ -39,7 +39,8 @@ const HomePage = () => {
 
   return (
     <PasswordContainer>
-      <NormalTypography>Ange lösenord för att få åtkomst till sidan</NormalTypography>
+      <NormalTypography>Ange lösenord för att få åtkomst till sidan.</NormalTypography>
+      <NormalTypography>Kontakta Sara eller Chrille för lösenord</NormalTypography>
       <form onSubmit={(e) => {
         e.preventDefault();
         if (password === passwordKey) {
